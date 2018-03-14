@@ -8,7 +8,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
-import javax.ws.rs.NotFoundException;
 
 @Stateless
 public class UserService {
