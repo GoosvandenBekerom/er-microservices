@@ -5,6 +5,7 @@ node {
 
     stage ('Clone') {
         checkout scm
+        sh 'chmod +x ./gradlew'
     }
 
     stage ('Artifactory configuration') {
