@@ -6,7 +6,7 @@ pipeline {
             steps {
                 checkout scm
                 sh './gradlew build'
-                aarchiveArtifacts artifacts: '**/build/libs/*.war', fingerprint: true
+                archiveArtifacts artifacts: '**/build/libs/*.war', fingerprint: true
             }
         }
         stage('Test') {
