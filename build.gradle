@@ -1,2 +1,23 @@
+plugins {
+    id "org.sonarqube" version "2.6"
+}
+
 group 'com.s63d'
 version '1.0-SNAPSHOT'
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'war'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.12'
+        providedCompile 'javax:javaee-api:8.0'
+    }
+}
