@@ -2,10 +2,12 @@ pipeline {
     agent any
 
     stages {
+        stage('Checkout') {
+            checkout scm
+        }
         stage('Build') {
             steps {
-                checkout scm
-                sh 'chmod +x ./gradlew && ./gradlew build'
+                sh 'chmod +x ./gradlew && ./gradlew clean build'
                 archiveArtifacts artifacts: '**/build/libs/*.war', fingerprint: true
             }
         }
