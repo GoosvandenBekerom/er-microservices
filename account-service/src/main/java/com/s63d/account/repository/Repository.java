@@ -5,7 +5,7 @@ import javax.persistence.PersistenceContext;
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 
-abstract public class Repository<T, TId> {
+public abstract class Repository<T, TID> {
     @PersistenceContext(unitName = "er-account")
     EntityManager em;
 
@@ -20,7 +20,7 @@ abstract public class Repository<T, TId> {
         return entity;
     }
 
-    public boolean exists(TId id) {
+    public boolean exists(TID id) {
         return em.find(entityClass, id) != null;
     }
 
@@ -29,7 +29,7 @@ abstract public class Repository<T, TId> {
      * @param id
      * @return instance of entity, can be null
      */
-    public T getById(TId id) {
+    public T getById(TID id) {
         return em.find(entityClass, id);
     }
 
@@ -43,7 +43,7 @@ abstract public class Repository<T, TId> {
         em.remove(entity);
     }
 
-    public void deleteById(TId id) {
+    public void deleteById(TID id) {
         em.remove(getById(id));
     }
 
@@ -52,7 +52,7 @@ abstract public class Repository<T, TId> {
      * @param id
      * @return Error with statuscode 404 that can be interpreted by a jaxrs exception handler
      */
-    public NotFoundException notFound(TId id) {
+    public NotFoundException notFound(TID id) {
         return new NotFoundException(entityClass.getSimpleName()+" with id "+id+" not found.");
     }
 }
