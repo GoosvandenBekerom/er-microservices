@@ -8,6 +8,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.NotFoundException;
 
 @Stateless
 public class UserService {
@@ -19,7 +20,9 @@ public class UserService {
     private RoleService roleService;
 
     public User getById(long id) {
-        return repo.getById(id);
+        User user = repo.getById(id);
+        if (user == null) throw repo.notFound(id);
+        return user;
     }
 
     public User save(String firstname, String lastname, String email, String password) {
