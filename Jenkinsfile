@@ -8,6 +8,12 @@ node {
         sh 'chmod +x ./gradlew'
     }
 
+    stage('SonarQube analysis') {
+        withSonarQubeEnv('er-microservices') {
+            sh './gradlew --info sonarqube'
+        }
+    }
+
     stage ('Artifactory configuration') {
         server = Artifactory.server 'arti'
 
