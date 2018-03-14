@@ -19,7 +19,7 @@ node {
         buildInfo = Artifactory.newBuildInfo()
     }
 
-    stage ('Test') {
+    stage ('Tests') {
         rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'clean test'
     }
 
