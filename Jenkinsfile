@@ -1,6 +1,15 @@
 pipeline {
     agent any
 
+    def server = Artifactory.server 'arti'
+    def rtGradle = Artifactory.newGradleBuild()
+    rtGradle.resolver server: server, repo: 'sop6-virt'
+    rtGradle.deployer server: server, repo: 'sop6-local'
+    rtGradle.deployer.deployArtifacts = false
+    rtGradle.useWrapper = true
+    def buildInfo = rtGradle.run rootDir: "/", tasks: 'clean build'
+
+
     stages {
         stage('Checkout') {
             steps {
@@ -21,7 +30,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                rtGradle.deployer.deployArtifacts buildInfo
             }
         }
     }
