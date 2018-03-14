@@ -1,7 +1,6 @@
 # Gradle generated files
 .gradle
 *.iml
-/gradle/wrapper/gradle-wrapper.properties
 
 # IDE specific files
 .idea
