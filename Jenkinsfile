@@ -1,37 +1,34 @@
-pipeline {
-    agent any
+node {
+    def server
+    def buildInfo
+    def rtGradle
 
-    def server = Artifactory.server 'arti'
-    def rtGradle = Artifactory.newGradleBuild()
-    rtGradle.resolver server: server, repo: 'sop6-virt'
-    rtGradle.deployer server: server, repo: 'sop6-local'
-    rtGradle.deployer.deployArtifacts = false
-    rtGradle.useWrapper = true
-    def buildInfo = rtGradle.run rootDir: "/", tasks: 'clean build'
+    stage ('Clone') {
+        checkout scm
+    }
 
+    stage ('Artifactory configuration') {
+        server = Artifactory.server 'arti'
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'chmod +x ./gradlew && ./gradlew clean build'
-                archiveArtifacts artifacts: '**/build/libs/*.war', fingerprint: true
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                rtGradle.deployer.deployArtifacts buildInfo
-            }
-        }
+        rtGradle = Artifactory.newGradleBuild()
+        rtGradle.useWrapper = true
+        rtGradle.deployer repo: 'sop6-local', server: server
+        rtGradle.resolver repo: 'sop6-virt', server: server
+        rtGradle.deployer.deployArtifacts = false
+
+        buildInfo = Artifactory.newBuildInfo()
+    }
+
+    stage ('Test') {
+        rtGradle.run rootDir: '/', buildFile: 'build.gradle', tasks: 'clean test'
+    }
+
+    stage ('Deploy') {
+        rtGradle.run rootDir: '/', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
+        rtGradle.deployer.deployArtifacts buildInfo
+    }
+
+    stage ('Publish build info') {
+        server.publishBuildInfo buildInfo
     }
 }
