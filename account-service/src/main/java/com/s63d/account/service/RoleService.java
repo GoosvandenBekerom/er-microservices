@@ -7,11 +7,12 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class RoleService {
+public class RoleService extends DomainService<Role, String> {
     @Inject
-    private RoleRepository repo;
+    public RoleService(RoleRepository repo) { super(repo); }
+    public RoleService() { super(); }
 
     public Role save(String name, String description) {
-        return repo.save(new Role(name, description));
+        return super.save(new Role(name, description));
     }
 }

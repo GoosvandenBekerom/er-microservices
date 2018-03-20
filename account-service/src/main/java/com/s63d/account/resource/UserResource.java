@@ -7,16 +7,9 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 
 @Path("user")
-public class UserResource extends JsonResource {
-    private UserService service;
+public class UserResource extends JsonResource<User, Long, UserService> {
     @Inject
-    public UserResource(UserService service) { this.service = service; }
-
-    @GET
-    @Path("{id}")
-    public User getUserById(@PathParam("id") long id) {
-        return service.getById(id);
-    }
+    public UserResource(UserService service) { super(service); }
 
     @POST
     public User registerUser(
