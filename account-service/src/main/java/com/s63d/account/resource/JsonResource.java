@@ -18,8 +18,7 @@ public class JsonResource<T, TID, TSERVICE extends DomainService<T, TID>> {
     }
 
     @DELETE
-    @Path("{id}")
-    public Response delete(@PathParam("id") TID id) {
+    public Response delete(@FormParam("id") TID id) {
         service.deleteById(id);
         return Response.ok().build();
     }
