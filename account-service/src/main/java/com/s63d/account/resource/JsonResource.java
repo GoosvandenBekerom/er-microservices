@@ -1,5 +1,6 @@
 package com.s63d.account.resource;
 
+import com.s63d.account.annotation.Secured;
 import com.s63d.account.service.DomainService;
 
 import javax.ws.rs.*;
@@ -18,6 +19,7 @@ public class JsonResource<T, TID, TSERVICE extends DomainService<T, TID>> {
     }
 
     @DELETE
+    @Secured
     public Response delete(@FormParam("id") TID id) {
         service.deleteById(id);
         return Response.ok().build();
