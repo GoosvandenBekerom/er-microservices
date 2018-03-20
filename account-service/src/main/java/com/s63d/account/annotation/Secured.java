@@ -10,4 +10,8 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Secured {
+    /**
+     * Which roles are allowed?
+     */
+    String[] value() default "basic";
 }

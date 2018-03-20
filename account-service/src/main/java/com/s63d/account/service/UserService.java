@@ -42,8 +42,8 @@ public class UserService extends DomainService<User, String> {
             throw new BadRequestException("Please enter a valid email");
         }
 
-        Role basicRole = roleService.save("basic", "A basic user"); // TODO: get real role
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+        Role basicRole = roleService.getById("basic");
         return super.save(new User(firstname, lastname, email, hashed, basicRole));
     }
 
