@@ -10,11 +10,9 @@ import java.util.Objects;
 @Entity
 public class User implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String email;
     private String firstName;
     private String lastName;
-    private String email;
     @JsonbTransient
     private String password;
 
@@ -34,12 +32,12 @@ public class User implements Serializable{
         this.ownerships = new ArrayList<>();
     }
 
-    public long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstName() {
@@ -56,14 +54,6 @@ public class User implements Serializable{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
@@ -95,18 +85,16 @@ public class User implements Serializable{
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return getId() == user.getId() &&
-                Objects.equals(getFirstName(), user.getFirstName()) &&
+        return Objects.equals(getFirstName(), user.getFirstName()) &&
                 Objects.equals(getLastName(), user.getLastName()) &&
                 Objects.equals(getEmail(), user.getEmail()) &&
                 Objects.equals(getPassword(), user.getPassword()) &&
-                Objects.equals(getRole(), user.getRole()) &&
-                Objects.equals(getOwnerships(), user.getOwnerships());
+                Objects.equals(getRole(), user.getRole());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getFirstName(), getLastName(), getEmail(), getPassword(), getRole(), getOwnerships());
+        return Objects.hash(getFirstName(), getLastName(), getEmail(), getPassword(), getRole());
     }
 }

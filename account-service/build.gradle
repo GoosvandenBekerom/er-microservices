@@ -3,4 +3,5 @@ version '1.0-SNAPSHOT'
 
 dependencies {
     compile 'org.mindrot:jbcrypt:0.4'
+    compile 'com.auth0:java-jwt:3.3.0'
 }
