@@ -15,11 +15,20 @@ public abstract class Repository<T, TID> {
         this.entityClass = entityClass;
     }
 
+    /**
+     * Persist this entity to the database
+     * @param entity to persist
+     * @return persisted entity
+     */
     public T save(T entity) {
         em.persist(entity);
         return entity;
     }
 
+    /**
+     * Check if an entity exists in the database
+     * @param id of this entity
+     */
     public boolean exists(TID id) {
         return em.find(entityClass, id) != null;
     }
@@ -39,10 +48,18 @@ public abstract class Repository<T, TID> {
                 .setMaxResults(limit).getResultList();
     }
 
+    /**
+     * Remove an entity from the database context
+     * @param entity to delete
+     */
     public void delete(T entity) {
         em.remove(entity);
     }
 
+    /**
+     * Remove an entity from the database context by its identifier
+     * @param id of the entity to delete
+     */
     public void deleteById(TID id) {
         em.remove(getById(id));
     }
