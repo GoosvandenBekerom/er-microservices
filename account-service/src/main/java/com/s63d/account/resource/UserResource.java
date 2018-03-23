@@ -1,8 +1,8 @@
 package com.s63d.account.resource;
 
-import com.s63d.account.annotation.Secured;
 import com.s63d.account.domain.User;
 import com.s63d.account.service.UserService;
+import com.s63d.generic.JsonResource;
 
 import javax.inject.Inject;
 import javax.json.Json;

@@ -1,6 +1,7 @@
 package com.s63d.account.repository;
 
 import com.s63d.account.domain.Role;
+import com.s63d.generic.Repository;
 
 import javax.ejb.Stateless;
 

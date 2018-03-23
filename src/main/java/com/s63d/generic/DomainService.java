@@ -1,13 +1,11 @@
-package com.s63d.account.service;
-
-import com.s63d.account.repository.Repository;
+package com.s63d.generic;
 
 import java.util.List;
 
 public class DomainService<T, TID> {
     Repository<T, TID> repo;
-    DomainService() {}
-    DomainService(Repository<T, TID> repo) { this.repo = repo; }
+    public DomainService() {}
+    public DomainService(Repository<T, TID> repo) { this.repo = repo; }
 
     public List<T> getAll() {
         return repo.getAll();

@@ -1,4 +1,4 @@
-package com.s63d.account.repository;
+package com.s63d.generic;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -7,11 +7,11 @@ import java.util.List;
 
 public abstract class Repository<T, TID> {
     @PersistenceContext(unitName = "er-account")
-    EntityManager em;
+    public EntityManager em;
 
     private Class<T> entityClass;
 
-    Repository(Class<T> entityClass) {
+    public Repository(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 

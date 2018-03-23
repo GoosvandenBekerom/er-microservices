@@ -4,13 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.s63d.account.annotation.Secured;
 import com.s63d.account.domain.User;
+import com.s63d.annotation.Secured;
 
-import javax.json.Json;
-import javax.json.JsonObject;
-import javax.json.JsonReader;
-import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotAuthorizedException;
@@ -19,10 +15,6 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
-import java.io.StringReader;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 @Secured
 @Provider

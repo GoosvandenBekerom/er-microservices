@@ -2,6 +2,7 @@ package com.s63d.account.service;
 
 import com.s63d.account.domain.Role;
 import com.s63d.account.repository.RoleRepository;
+import com.s63d.generic.DomainService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

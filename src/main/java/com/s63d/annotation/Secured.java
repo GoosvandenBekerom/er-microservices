@@ -1,4 +1,4 @@
-package com.s63d.account.annotation;
+package com.s63d.annotation;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.ElementType;

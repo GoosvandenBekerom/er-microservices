@@ -1,8 +1,9 @@
 package com.s63d.account.resource;
 
-import com.s63d.account.annotation.Secured;
 import com.s63d.account.domain.Role;
 import com.s63d.account.service.RoleService;
+import com.s63d.annotation.Secured;
+import com.s63d.generic.JsonResource;
 
 import javax.inject.Inject;
 import javax.ws.rs.FormParam;

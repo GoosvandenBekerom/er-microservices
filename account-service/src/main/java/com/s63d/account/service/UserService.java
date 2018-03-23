@@ -5,20 +5,18 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.s63d.account.domain.Role;
 import com.s63d.account.domain.User;
-import com.s63d.account.repository.Repository;
 import com.s63d.account.repository.UserRepository;
+import com.s63d.generic.DomainService;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonObject;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.BadRequestException;
+import javax.ws.rs.ClientErrorException;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.WebApplicationException;
 import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Stateless
@@ -50,7 +48,7 @@ public class UserService extends DomainService<User, String> {
     public String loginUser(String email, String password) {
         User user = getById(email);
         if (!BCrypt.checkpw(password, user.getPassword())) {
-            throw new WebApplicationException("Wrong password", 422);
+            throw new ClientErrorException("Wrong password", 401);
         }
         return generateToken(user);
     }

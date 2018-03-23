@@ -1,7 +1,6 @@
-package com.s63d.account.resource;
+package com.s63d.generic;
 
-import com.s63d.account.annotation.Secured;
-import com.s63d.account.service.DomainService;
+import com.s63d.annotation.Secured;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -9,8 +8,8 @@ import javax.ws.rs.core.Response;
 
 @Produces(MediaType.APPLICATION_JSON)
 public class JsonResource<T, TID, TSERVICE extends DomainService<T, TID>> {
-    TSERVICE service;
-    JsonResource(TSERVICE service) { this.service = service; }
+    public TSERVICE service;
+    public JsonResource(TSERVICE service) { this.service = service; }
 
     @GET
     @Path("{id}")
@@ -20,7 +19,8 @@ public class JsonResource<T, TID, TSERVICE extends DomainService<T, TID>> {
 
     @DELETE
     @Secured
-    public Response delete(@FormParam("id") TID id) {
+    @Path("{id}")
+    public Response delete(@PathParam("id") TID id) {
         service.deleteById(id);
         return Response.ok().build();
     }
