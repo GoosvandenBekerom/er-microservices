@@ -1,13 +1,11 @@
-package com.s63d.account.util;
+package com.s63d.util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.s63d.account.domain.User;
 import com.s63d.annotation.Secured;
 
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -50,22 +48,23 @@ public class SecuredFilter implements ContainerRequestFilter {
                     .build();
 
             DecodedJWT jwt = verifier.verify(token);
-            User user = JsonbBuilder.create().fromJson(jwt.getClaim("user").asString(), User.class);
+            String userId = jwt.getClaim("userId").asString();
+            String userRole = jwt.getClaim("userRole").asString();
 
-            if (!isPermitted(user, allowed)) {
+            if (!isPermitted(userRole, allowed)) {
                 return false;
             }
 
-            requestContext.setProperty("user", user);
+            requestContext.setProperty("user", userId);
             return true;
         } catch (Exception e) {
             return false;
         }
     }
 
-    private boolean isPermitted(User user, String[] allowed) {
+    private boolean isPermitted(String userRole, String[] allowed) {
         for(String role : allowed) {
-            if (role.equals(user.getRole().getName())) return true;
+            if (role.equals(userRole)) return true;
         }
         return false;
     }

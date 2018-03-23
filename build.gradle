@@ -28,3 +28,7 @@ allprojects {
 war {
     archiveName = 'er-microservices.war'
 }
+
+dependencies {
+    compile 'com.auth0:java-jwt:3.3.0'
+}

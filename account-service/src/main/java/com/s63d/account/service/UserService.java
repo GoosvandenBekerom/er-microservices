@@ -58,7 +58,8 @@ public class UserService extends DomainService<User, String> {
             Algorithm algorithm = Algorithm.HMAC256("secret"); // TODO: extract secret to config file
             return JWT.create()
                     .withExpiresAt(Date.from(new Date().toInstant().plusSeconds(WEEK_IN_SECONDS)))
-                    .withClaim("user", JsonbBuilder.create().toJson(user))
+                    .withClaim("userId", user.getEmail())
+                    .withClaim("userRole", user.getRole().getName())
                     .withIssuer("auth0")
                     .sign(algorithm);
         } catch (UnsupportedEncodingException | JWTCreationException e){
