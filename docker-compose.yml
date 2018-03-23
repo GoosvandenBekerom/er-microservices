@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql/
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=account-service
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8888:80"
+    links:
+      - mysql:mysql
+    environment:
+      - MYSQL_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=root
+      - PMA_HOST=mysql
+    depends_on:
+      - mysql
+
+  payara:
+    build: .
+    ports:
+      - "8080:8080"
+      - "4848:4848"
+      - "8181:8181"
+      - "8009:8009"
+    links:
+      - mysql:mysql
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:
