@@ -7,7 +7,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Produces(MediaType.APPLICATION_JSON)
-public class JsonResource<T, TID, TSERVICE extends DomainService<T, TID>> {
+public class JsonResource<T, TID, TREPO extends Repository<T, TID>, TSERVICE extends DomainService<T, TID, TREPO>> {
     public TSERVICE service;
     public JsonResource(TSERVICE service) { this.service = service; }
 

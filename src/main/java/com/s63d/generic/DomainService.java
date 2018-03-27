@@ -2,10 +2,10 @@ package com.s63d.generic;
 
 import java.util.List;
 
-public class DomainService<T, TID> {
-    Repository<T, TID> repo;
+public class DomainService<T, TID, TREPO extends Repository<T, TID>> {
+    public TREPO repo;
     public DomainService() {}
-    public DomainService(Repository<T, TID> repo) { this.repo = repo; }
+    public DomainService(TREPO repo) { this.repo = repo; }
 
     public List<T> getAll() {
         return repo.getAll();
