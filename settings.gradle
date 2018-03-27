@@ -1,3 +1,4 @@
 rootProject.name = 'er-microservices'
 include 'account-service'
+include 'location-service'
 
