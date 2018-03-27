@@ -3,7 +3,9 @@ package com.s63d.account.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.s63d.account.domain.Ownership;
 import com.s63d.account.domain.Role;
+import com.s63d.account.domain.SimpleVehicle;
 import com.s63d.account.domain.User;
 import com.s63d.account.repository.UserRepository;
 import com.s63d.generic.DomainService;
@@ -18,9 +20,10 @@ import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.WebApplicationException;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 
 @Stateless
-public class UserService extends DomainService<User, String> {
+public class UserService extends DomainService<User, Long, UserRepository> {
     @Inject
     private ValidationService validation;
     @Inject
@@ -46,11 +49,15 @@ public class UserService extends DomainService<User, String> {
     }
 
     public String loginUser(String email, String password) {
-        User user = getById(email);
+        User user = getByEmail(email);
         if (!BCrypt.checkpw(password, user.getPassword())) {
             throw new ClientErrorException("Wrong password", 401);
         }
         return generateToken(user);
+    }
+
+    private User getByEmail(String email) {
+        return repo.findByEmail(email);
     }
 
     private String generateToken(User user) {
@@ -65,5 +72,9 @@ public class UserService extends DomainService<User, String> {
         } catch (UnsupportedEncodingException | JWTCreationException e){
             throw new InternalServerErrorException("An error occurred during the creation of your authorization token.");
         }
+    }
+
+    public List<Ownership> getOwnerships(long id) {
+        return repo.getOwnerships(id);
     }
 }

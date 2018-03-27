@@ -10,6 +10,9 @@ import java.util.Objects;
 @Entity
 public class User implements Serializable{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private String email;
     private String firstName;
     private String lastName;
@@ -30,6 +33,14 @@ public class User implements Serializable{
         this.password = password;
         this.role = role;
         this.ownerships = new ArrayList<>();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {

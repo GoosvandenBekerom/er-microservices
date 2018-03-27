@@ -6,7 +6,7 @@ import javax.ws.rs.NotFoundException;
 import java.util.List;
 
 public abstract class Repository<T, TID> {
-    @PersistenceContext(unitName = "er-account")
+    @PersistenceContext
     public EntityManager em;
 
     private Class<T> entityClass;

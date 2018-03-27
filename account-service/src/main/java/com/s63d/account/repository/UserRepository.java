@@ -1,11 +1,25 @@
 package com.s63d.account.repository;
 
+import com.s63d.account.domain.Ownership;
+import com.s63d.account.domain.SimpleVehicle;
 import com.s63d.account.domain.User;
 import com.s63d.generic.Repository;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
+import java.util.List;
 
 @Stateless
-public class UserRepository extends Repository<User, String> {
+public class UserRepository extends Repository<User, Long> {
     public UserRepository() { super(User.class); }
+
+    public User findByEmail(String email) {
+        Query q = em.createQuery("SELECT u FROM User u WHERE u.email = :email").setParameter("email", email);
+        return (User) q.getSingleResult();
+    }
+
+    public List<Ownership> getOwnerships(long id) {
+        User user = getById(id);
+        return user.getOwnerships();
+    }
 }
