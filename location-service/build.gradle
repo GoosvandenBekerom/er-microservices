@@ -4,3 +4,16 @@ version '1.0-SNAPSHOT'
 war {
     archiveName = 'location-service.war'
 }
+
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/groups/public"
+    }
+}
+
+ext {
+    snoopeeVersion = "2.0.0-SNAPSHOT"
+}
+dependencies {
+    compile "eu.agilejava:snoopee:${snoopeeVersion}"
+}
