@@ -24,17 +24,28 @@ services:
     depends_on:
       - mysql
 
-  payara:
-    build: .
+  account-service:
+    build: ./account-service
+    image: er/account-service:latest
     ports:
-      - "8080:8080"
-      - "4848:4848"
-      - "8181:8181"
-      - "8009:8009"
-    links:
-      - mysql:mysql
+      - 8088:8080
     depends_on:
       - mysql
+
+  location-service:
+    build: ./location-service
+    image: er/location-service:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - discovery
+
+  discovery:
+    image: ivargrimstad/snoopee-service:2.0.0-SNAPSHOT
+    ports:
+      - 1234:8080
+
 
 volumes:
   mysql-data:
