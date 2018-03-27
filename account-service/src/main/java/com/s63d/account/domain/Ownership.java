@@ -13,16 +13,18 @@ public class Ownership implements Serializable{
 
     private Date startDate;
     private Date endDate;
+
     @ManyToOne
     private User user;
-    private String carId;
+    @ManyToOne
+    private SimpleVehicle vehicle;
 
     public Ownership() {}
-    public Ownership(Date startDate, Date endDate, User user, String carId) {
+    public Ownership(Date startDate, Date endDate, User user, SimpleVehicle vehicle) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.user = user;
-        this.carId = carId;
+        this.vehicle = vehicle;
     }
 
     public long getId() {
@@ -57,12 +59,12 @@ public class Ownership implements Serializable{
         this.user = user;
     }
 
-    public String getCarId() {
-        return carId;
+    public SimpleVehicle getVehicle() {
+        return vehicle;
     }
 
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public void setVehicle(SimpleVehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     @Override
@@ -73,12 +75,11 @@ public class Ownership implements Serializable{
         return getId() == ownership.getId() &&
                 Objects.equals(getStartDate(), ownership.getStartDate()) &&
                 Objects.equals(getEndDate(), ownership.getEndDate()) &&
-                Objects.equals(getUser(), ownership.getUser()) &&
-                Objects.equals(getCarId(), ownership.getCarId());
+                Objects.equals(getUser(), ownership.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getStartDate(), getEndDate(), getUser(), getCarId());
+        return Objects.hash(getId(), getStartDate(), getEndDate(), getUser());
     }
 }
