@@ -1,0 +1,6 @@
+group 'com.s63d'
+version '1.0-SNAPSHOT'
+
+war {
+    archiveName = 'vehicle-service.war'
+}
