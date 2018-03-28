@@ -7,13 +7,13 @@ node {
         checkout scm
         sh 'chmod +x ./gradlew'
     }
-/*
+
     stage('SonarQube analysis') {
         withSonarQubeEnv('er-microservices') {
             sh './gradlew --info sonarqube'
         }
     }
-*/
+/*
     stage ('Artifactory configuration') {
         server = Artifactory.server 'arti'
 
@@ -25,11 +25,11 @@ node {
 
         buildInfo = Artifactory.newBuildInfo()
     }
-
+*/
     stage ('Tests') {
         rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'clean test'
     }
-
+/*
     stage ('Deploy') {
         rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
         rtGradle.deployer.deployArtifacts buildInfo
@@ -38,4 +38,5 @@ node {
     stage ('Publish build info') {
         server.publishBuildInfo buildInfo
     }
+*/
 }
