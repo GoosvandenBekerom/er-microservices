@@ -4,3 +4,7 @@ version '1.0-SNAPSHOT'
 war {
     archiveName = 'vehicle-service.war'
 }
+
+dependencies {
+    compile rootProject
+}

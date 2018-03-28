@@ -17,7 +17,6 @@ allprojects {
     }
 
     dependencies {
-        compile rootProject
         testCompile group: 'junit', name: 'junit', version: '4.12'
         providedCompile 'javax:javaee-api:8.0'
         // Swagger

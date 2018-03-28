@@ -15,5 +15,6 @@ ext {
     snoopeeVersion = "2.0.0-SNAPSHOT"
 }
 dependencies {
+    compile rootProject
     compile "eu.agilejava:snoopee:${snoopeeVersion}"
 }
