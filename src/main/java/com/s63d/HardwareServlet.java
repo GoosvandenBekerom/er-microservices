@@ -23,22 +23,25 @@ public class HardwareServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         response.setContentType("text/plain");
         out.println("OS:");
-        out.println("name: "+System.getProperty("os.name"));
-        out.println("version: "+System.getProperty("os.version"));
-        out.println("architecture: "+System.getProperty("os.arch"));
+        out.println("Name: "+System.getProperty("os.name"));
+        out.println("Version: "+System.getProperty("os.version"));
+        out.println("Architecture: "+System.getProperty("os.arch"));
 
+        out.println();
         out.println("MEMORY:");
-        out.println("free memory: "+number.format(freeMemory / 1024));
-        out.println("allocated memory: "+number.format(allocatedMemory / 1024));
-        out.println("max memory: "+number.format(maxMemory / 1024));
-        out.println("total free memory: "+number.format((freeMemory + (maxMemory - allocatedMemory)) / 1024));
+        out.println("Free memory: "+number.format(freeMemory / 1024));
+        out.println("Allocated memory: "+number.format(allocatedMemory / 1024));
+        out.println("Max memory: "+number.format(maxMemory / 1024));
+        out.println("Total free memory: "+number.format((freeMemory + (maxMemory - allocatedMemory)) / 1024));
 
+        out.println();
         out.println("DISKS:");
         for (File root : File.listRoots()) {
             out.println("File system root: "+root.getAbsolutePath());
             out.println("Total space (bytes): "+root.getTotalSpace());
             out.println("Free space (bytes): "+root.getFreeSpace());
             out.println("Usable space (bytes): "+root.getUsableSpace());
+            out.println();
         }
     }
 }
