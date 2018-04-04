@@ -23,7 +23,6 @@ public class HardwareServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         response.setContentType("text/plain");
-        out.println("Onze remote deploy werkt helemaal!");
         out.println("OS:");
         out.println("Name: "+System.getProperty("os.name"));
         out.println("Version: "+System.getProperty("os.version"));
