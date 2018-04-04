@@ -13,7 +13,7 @@ node {
             sh './gradlew --info sonarqube'
         }
     }
-*/
+
     stage ('Artifactory configuration') {
         server = Artifactory.server 'arti'
 
@@ -25,13 +25,14 @@ node {
 
         buildInfo = Artifactory.newBuildInfo()
     }
-
+*/
     stage ('Tests') {
-        rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'clean test'
+        //rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'clean test'
+        sh './gradlew clean test'
     }
 
     stage ('Remote Deploy') {
-        rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'deploy'
+        sh './gradlew deploy'
     }
 /*
     stage ('Deploy') {
