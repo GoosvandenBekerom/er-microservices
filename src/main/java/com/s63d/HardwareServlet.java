@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetAddress;
 import java.text.NumberFormat;
 
 public class HardwareServlet extends HttpServlet {
@@ -27,6 +28,7 @@ public class HardwareServlet extends HttpServlet {
         out.println("Name: "+System.getProperty("os.name"));
         out.println("Version: "+System.getProperty("os.version"));
         out.println("Architecture: "+System.getProperty("os.arch"));
+        out.println("Hostname: " + InetAddress.getLocalHost().getHostName());
 
         out.println();
         out.println("MEMORY:");
