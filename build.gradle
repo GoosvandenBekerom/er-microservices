@@ -31,3 +31,8 @@ war {
 dependencies {
     compile 'com.auth0:java-jwt:3.3.0'
 }
+
+task deploy(dependsOn: 'war', type:Exec) {
+    commandLine "/usr/local/opt/glassfish5/bin/asadmin"
+    args "--user", "admin", "--passwordFile", "password.txt", "--host", "localhost", "deploy", "--force=true", "--upload=true", "${war.archivePath}"
+}
