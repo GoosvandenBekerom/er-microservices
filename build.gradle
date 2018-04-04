@@ -33,6 +33,6 @@ dependencies {
 }
 
 task deploy(dependsOn: 'war', type:Exec) {
-    commandLine "~/glassfish5/bin/asadmin"
+    commandLine "/var/jenkins_home/glassfish5/bin/asadmin"
     args "--user", "admin", "--passwordFile", "password.txt", "--host", "payara", "deploy", "--force=true", "--upload=true", "${war.archivePath}"
 }
