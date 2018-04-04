@@ -34,6 +34,10 @@ node {
     stage ('Remote Deploy') {
         sh './gradlew deploy'
     }
+
+    stage ('Acceptatie Deploy') {
+            sh './gradlew deployAcceptatie'
+    }
 /*
     stage ('Deploy') {
         rtGradle.run rootDir: './', buildFile: 'build.gradle', tasks: 'artifactoryPublish', buildInfo: buildInfo
