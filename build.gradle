@@ -33,6 +33,6 @@ dependencies {
 }
 
 task deploy(dependsOn: 'war', type:Exec) {
-    commandLine "/usr/local/opt/glassfish5/bin/asadmin"
-    args "--user", "admin", "--passwordFile", "password.txt", "--host", "localhost", "deploy", "--force=true", "--upload=true", "${war.archivePath}"
+    commandLine "~/glassfish5/bin/asadmin"
+    args "--user", "admin", "--passwordFile", "password.txt", "--host", "payara", "deploy", "--force=true", "--upload=true", "${war.archivePath}"
 }
