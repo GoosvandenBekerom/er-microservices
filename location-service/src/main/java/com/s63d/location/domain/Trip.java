@@ -6,6 +6,8 @@ import javax.persistence.Id;
 @Entity
 public class Trip {
 
+    public Trip() {
+    }
 
     @Id
     private Long id;

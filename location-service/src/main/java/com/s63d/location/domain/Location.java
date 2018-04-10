@@ -1,10 +1,13 @@
 package com.s63d.location.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Location {
+    public Location() {
+    }
 
     public Location(Long tripId, Double lat, Double lon) {
         this.tripId = tripId;
@@ -13,6 +16,7 @@ public class Location {
     }
 
     @Id
+    @GeneratedValue
     private Long id;
     private Long tripId;
     private Double lat;
