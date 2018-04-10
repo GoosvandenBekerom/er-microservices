@@ -1,7 +1,5 @@
 package com.s63d.location.event;
 
-import org.slf4j.LoggerFactory;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
@@ -16,13 +14,15 @@ public class BindingInitializer {
 
     @PostConstruct
     public void initialize() {
-        binder.configuration()
+
+        try {
+            binder.configuration()
                     .addHost("goosvandenbekerom.nl")
                     .setUsername("proftaak")
                     .setPassword("proftaak");
-        try {
             binder.initialize();
         } catch (IOException e) {
+            System.out.println("Oh no..");
             e.printStackTrace();
         }
     }

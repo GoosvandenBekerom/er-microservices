@@ -13,7 +13,8 @@ public class LocationUpdateReceiver {
     private LocationRepository repo;
 
     public void receiveEvent(@Observes LocationEvent locationEvent) {
-        repo.save(locationEvent.toLocation());
+        //repo.save(locationEvent.toLocation());
+        System.out.println("Saved location");
     }
 
 }
