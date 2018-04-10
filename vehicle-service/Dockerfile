@@ -4,7 +4,4 @@ RUN wget -O ./database-connector.jar http://central.maven.org/maven2/mysql/mysql
 
 COPY ./build/libs/location-service.war .
 
-#-Dhost=http://192.168.59.103 -Dport=8080 -DserviceRoot=snoopee-hello-service/api
-
-ENTRYPOINT ["java", "-jar", "payara-micro.jar", "--addJars", "database-connector.jar", "--deploy", "location-service.war",
-            "-Dhost=http://localhost", "-Dport=8080", "-DserviceRoot=snoopee-location-service/api", " -DsnoopeeService: discovery:8080/snoopee-service/"]
+ENTRYPOINT ["java", "-jar", "payara-micro.jar", "--addJars", "database-connector.jar", "--deploy", "location-service.war"]
