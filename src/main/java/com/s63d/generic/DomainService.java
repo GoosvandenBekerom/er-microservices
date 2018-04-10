@@ -1,5 +1,6 @@
 package com.s63d.generic;
 
+import javax.ejb.Stateless;
 import java.util.List;
 
 public class DomainService<T, TID, TREPO extends Repository<T, TID>> {

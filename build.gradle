@@ -36,3 +36,8 @@ task deploy(dependsOn: 'war', type:Exec) {
     commandLine "/var/jenkins_home/glassfish5/bin/asadmin"
     args "--user", "admin", "--passwordFile", "password.txt", "--host", "payara", "deploy", "--force=true", "--upload=true", "${war.archivePath}"
 }
+
+task deployAcceptatie(dependsOn: 'war', type:Exec) {
+    commandLine "/var/jenkins_home/glassfish5/bin/asadmin"
+    args "--user", "admin", "--passwordFile", "password.txt", "--host", "acceptatie", "deploy", "--force=true", "--upload=true", "${war.archivePath}"
+}

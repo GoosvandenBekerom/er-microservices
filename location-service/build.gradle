@@ -5,16 +5,7 @@ war {
     archiveName = 'location-service.war'
 }
 
-repositories {
-    maven {
-        url "https://oss.sonatype.org/content/groups/public"
-    }
-}
-
-ext {
-    snoopeeVersion = "2.0.0-SNAPSHOT"
-}
 dependencies {
     compile rootProject
-    compile "eu.agilejava:snoopee:${snoopeeVersion}"
+    compile group: 'net.reini', name: 'rabbitmq-cdi', version: '0.9.5'
 }
