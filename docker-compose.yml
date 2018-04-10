@@ -4,7 +4,7 @@ services:
   mysql:
     image: mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - mysql-data:/var/lib/mysql/
     environment:
@@ -14,7 +14,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
-      - "8888:80"
+      - 8888:80
     links:
       - mysql:mysql
     environment:
