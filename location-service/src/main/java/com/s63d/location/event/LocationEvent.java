@@ -1,5 +1,7 @@
 package com.s63d.location.event;
 
+import com.s63d.location.domain.Location;
+
 import java.io.Serializable;
 
 public class LocationEvent implements Serializable {
@@ -59,4 +61,7 @@ public class LocationEvent implements Serializable {
                 '}';
     }
 
+    Location toLocation() {
+        return new Location(tripId, lat, lon);
+    }
 }
