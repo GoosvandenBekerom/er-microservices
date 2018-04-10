@@ -41,11 +41,6 @@ services:
       - mysql
       - discovery
 
-  discovery:
-    image: ivargrimstad/snoopee-service:2.0.0-SNAPSHOT
-    ports:
-      - 1234:8080
-
 
 volumes:
   mysql-data:
