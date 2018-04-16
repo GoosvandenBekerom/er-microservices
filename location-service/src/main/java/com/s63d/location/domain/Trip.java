@@ -1,6 +1,7 @@
 package com.s63d.location.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -9,7 +10,12 @@ public class Trip {
     public Trip() {
     }
 
+    public Trip(Long trackerId) {
+        this.trackerId = trackerId;
+    }
+
     @Id
+    @GeneratedValue
     private Long id;
 
     private Long trackerId;
@@ -18,9 +24,6 @@ public class Trip {
         return id;
     }
 
-    public Trip(Long trackerId) {
-        this.trackerId = trackerId;
-    }
 
     public Long getTrackerId() {
         return trackerId;
