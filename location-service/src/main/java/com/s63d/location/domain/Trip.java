@@ -1,8 +1,7 @@
 package com.s63d.location.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Trip {
@@ -31,5 +30,16 @@ public class Trip {
 
     public void setTrackerId(Long trackerId) {
         this.trackerId = trackerId;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trip")
+    private List<Location> locations;
+
+    public List<Location> getLocations() {
+        return locations;
+    }
+
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
     }
 }

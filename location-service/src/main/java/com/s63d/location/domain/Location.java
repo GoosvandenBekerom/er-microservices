@@ -1,26 +1,26 @@
 package com.s63d.location.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Location {
     public Location() {
     }
 
-    public Location(Long tripId, Double lat, Double lon) {
-        this.tripId = tripId;
+
+    public Location(Trip trip, Double lat, Double lon) {
         this.lat = lat;
+        this.trip = trip;
         this.lon = lon;
     }
 
     @Id
     @GeneratedValue
     private Long id;
-    private Long tripId;
     private Double lat;
     private Double lon;
+    @ManyToOne
+    private Trip trip;
 
     public Long getId() {
         return id;
@@ -28,14 +28,6 @@ public class Location {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(Long tripId) {
-        this.tripId = tripId;
     }
 
     public Double getLat() {
@@ -52,5 +44,13 @@ public class Location {
 
     public void setLon(Double lon) {
         this.lon = lon;
+    }
+
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
     }
 }
