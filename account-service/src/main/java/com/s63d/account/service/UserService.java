@@ -3,9 +3,7 @@ package com.s63d.account.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
-import com.s63d.account.domain.Ownership;
 import com.s63d.account.domain.Role;
-import com.s63d.account.domain.SimpleVehicle;
 import com.s63d.account.domain.User;
 import com.s63d.account.repository.UserRepository;
 import com.s63d.generic.DomainService;
@@ -13,11 +11,9 @@ import org.mindrot.jbcrypt.BCrypt;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.*;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
-import java.util.List;
 
 @Stateless
 public class UserService extends DomainService<User, Long, UserRepository> {
@@ -72,9 +68,5 @@ public class UserService extends DomainService<User, Long, UserRepository> {
         } catch (UnsupportedEncodingException | JWTCreationException e){
             throw new InternalServerErrorException("An error occurred during the creation of your authorization token.");
         }
-    }
-
-    public List<Ownership> getOwnerships(long id) {
-        return repo.getOwnerships(id);
     }
 }

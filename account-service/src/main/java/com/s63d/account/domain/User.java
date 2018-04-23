@@ -3,8 +3,6 @@ package com.s63d.account.domain;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,9 +20,6 @@ public class User implements Serializable{
     @OneToOne
     private Role role;
 
-    @OneToMany(mappedBy = "user")
-    private List<Ownership> ownerships;
-
     public User() {}
     public User(String firstName, String lastName, String email, String password, Role role) {
         this.firstName = firstName;
@@ -32,7 +27,6 @@ public class User implements Serializable{
         this.email = email;
         this.password = password;
         this.role = role;
-        this.ownerships = new ArrayList<>();
     }
 
     public long getId() {
@@ -83,14 +77,6 @@ public class User implements Serializable{
         this.role = role;
     }
 
-    public List<Ownership> getOwnerships() {
-        return ownerships;
-    }
-
-    public void setOwnerships(List<Ownership> ownerships) {
-        this.ownerships = ownerships;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,7 +91,6 @@ public class User implements Serializable{
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getFirstName(), getLastName(), getEmail(), getPassword(), getRole());
     }
 }
