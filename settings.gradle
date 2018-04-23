@@ -2,4 +2,5 @@ rootProject.name = 'er-microservices'
 include 'account-service'
 include 'vehicle-service'
 include 'location-service'
+include 'invoice-service'
 
