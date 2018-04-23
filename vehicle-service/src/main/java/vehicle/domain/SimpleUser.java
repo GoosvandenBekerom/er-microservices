@@ -1,5 +1,6 @@
 package vehicle.domain;
 
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,6 +8,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "user.getOwnerships", query = "SELECT o FROM Ownership o WHERE o.user = :user"),
+        /*@NamedQuery(
+                name = "user.getVehicles",
+                query = "SELECT o.vehicle FROM Ownership o " +
+                        "WHERE o.user = :user AND o.endDate is null AND o.endDate > :today"
+        )*/
+})
 public class SimpleUser implements Serializable{
     @Id
     private long id;
@@ -16,15 +25,18 @@ public class SimpleUser implements Serializable{
     private String lastName;
 
     @OneToMany(mappedBy = "user")
+    @JsonbTransient
     private List<Ownership> ownerships;
 
-    public SimpleUser() {}
+    public SimpleUser() {
+        this.ownerships = new ArrayList<>();
+    }
     public SimpleUser(long id, String firstName, String lastName, String email, String password) {
+        this();
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.ownerships = new ArrayList<>();
     }
 
     public long getId() {

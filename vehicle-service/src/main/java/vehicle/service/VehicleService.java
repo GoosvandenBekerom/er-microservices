@@ -8,8 +8,8 @@ import vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.Query;
 import java.security.MessageDigest;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
@@ -21,11 +21,7 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
     public VehicleService() { super(); }
 
     public List<Vehicle> getAllVehicles(SimpleUser user) {
-        List<Vehicle> vehicles = new ArrayList<>();
-        for (Ownership o : user.getOwnerships()) {
-            vehicles.add(o.getVehicle());
-        }
-        return vehicles;
+        return repo.getAllVehicles(user);
     }
 
     public Vehicle save(String license, String type, String brand, String color) {

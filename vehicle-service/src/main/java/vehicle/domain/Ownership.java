@@ -16,13 +16,12 @@ public class Ownership implements Serializable{
 
     @ManyToOne
     private Vehicle vehicle;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private SimpleUser user;
 
     public Ownership() {}
-    public Ownership(Date startDate, Date endDate, SimpleUser user, Vehicle vehicle) {
+    public Ownership(Date startDate, SimpleUser user, Vehicle vehicle) {
         this.startDate = startDate;
-        this.endDate = endDate;
         this.user = user;
         this.vehicle = vehicle;
     }

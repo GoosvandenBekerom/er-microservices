@@ -1,33 +1,48 @@
 package vehicle.resource;
 
+import vehicle.clients.AccountClient;
 import vehicle.domain.SimpleUser;
 import vehicle.domain.Vehicle;
 import vehicle.repository.VehicleRepository;
+import vehicle.service.OwnershipService;
+import vehicle.service.SimpleUserService;
 import vehicle.service.VehicleService;
 import com.s63d.annotation.Secured;
 import com.s63d.generic.JsonResource;
-import com.s63d.util.ServiceURLs;
 
 import javax.inject.Inject;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @Secured
 @Path("vehicle")
 public class VehicleResource extends JsonResource<Vehicle, String, VehicleRepository, VehicleService> {
+    private OwnershipService ownershipService;
+    private SimpleUserService userService;
+    private AccountClient accountClient;
     @Inject
-    public VehicleResource(VehicleService service) { super(service); }
+    public VehicleResource(
+            VehicleService service, OwnershipService ownershipService,
+            SimpleUserService userService, AccountClient accountClient) {
+        super(service);
+        this.ownershipService = ownershipService;
+        this.userService = userService;
+        this.accountClient = accountClient;
+    }
 
     @GET
     public List<Vehicle> allVehiclesOfUser(@Context ContainerRequestContext context) {
-        SimpleUser user = getRequestUser(context);
+        long userId = (long) context.getProperty("user");
+        SimpleUser user = accountClient.getUserById(userId);
+        return service.getAllVehicles(user);
+    }
+
+    @GET
+    @Path("{userId}")
+    public List<Vehicle> allVehiclesOfUser(@PathParam("userId") long userId) {
+        SimpleUser user = userService.getById(userId);
         return service.getAllVehicles(user);
     }
 
@@ -37,13 +52,10 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
             @FormParam("license") String license, @FormParam("type") String type,
             @FormParam("brand") String brand, @FormParam("color") String color)
     {
-        return service.save(license, type, brand, color);
-    }
-
-    private SimpleUser getRequestUser(ContainerRequestContext context) {
-        String userId = "1"; //context.getProperty("user").toString();
-        return ClientBuilder.newClient()
-                .target(ServiceURLs.ACCOUNT_SERVICE).path("user").path(userId)
-                .request(MediaType.APPLICATION_JSON).get(SimpleUser.class);
+        long userId = (long) context.getProperty("user");
+        SimpleUser owner = accountClient.getUserById(userId);
+        Vehicle vehicle = service.save(license, type, brand, color);
+        ownershipService.create(owner, vehicle);
+        return vehicle;
     }
 }
