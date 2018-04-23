@@ -1,20 +1,26 @@
 package com.s63d.location.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries(
+        @NamedQuery(name = "trip.getLocations", query = "SELECT l FROM Location l WHERE l.trip.id = :tripId")
+)
 public class Trip {
 
     public Trip() {
+
     }
 
     public Trip(Long trackerId) {
+        this();
         this.trackerId = trackerId;
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long trackerId;
@@ -32,14 +38,11 @@ public class Trip {
         this.trackerId = trackerId;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "trip")
-    private List<Location> locations;
-
-    public List<Location> getLocations() {
-        return locations;
-    }
-
-    public void setLocations(List<Location> locations) {
-        this.locations = locations;
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "id=" + id +
+                ", trackerId=" + trackerId +
+                '}';
     }
 }

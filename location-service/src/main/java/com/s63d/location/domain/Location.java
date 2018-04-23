@@ -10,15 +10,16 @@ public class Location {
 
     public Location(Trip trip, Double lat, Double lon) {
         this.lat = lat;
-        this.trip = trip;
         this.lon = lon;
+        this.trip = trip;
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Double lat;
     private Double lon;
+
     @ManyToOne
     private Trip trip;
 

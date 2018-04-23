@@ -1,5 +1,6 @@
 package com.s63d.location.event;
 
+import com.s63d.location.domain.Location;
 import com.s63d.location.domain.Trip;
 import com.s63d.location.repository.LocationRepository;
 import com.s63d.location.repository.TripRepository;
@@ -24,7 +25,9 @@ public class LocationUpdateReceiver {
             return;
         }
         Trip trip = tripRepo.getById(locationEvent.getTripId());
-        locationRepository.save(locationEvent.toLocation(trip));
+
+        Location location = locationRepository.save(locationEvent.toLocation(trip));
+
     }
 
 }
