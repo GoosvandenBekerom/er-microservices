@@ -39,6 +39,13 @@ services:
       - 8080:8080
     depends_on:
       - mysql
+  invoice-service:
+    build: ./invoice-service
+    image: er/invoice-service:latest
+    ports:
+      - 8081:8080
+    depends_on:
+      - mysql
 
 volumes:
   mysql-data:
