@@ -26,9 +26,8 @@ public class TripResource extends JsonResource<Trip, Long, TripRepository, TripS
         return trip;
     }
 
-    @GET
-    @Path("/a/{tripId}")
-    public Response loadTrip(@PathParam("tripId") Long tripId) {
-        return ok(service.getTripResponse(tripId)).build();
+    @Override
+    public Response getById(Long id) {
+        return ok(service.getTripResponse(id)).build();
     }
 }
