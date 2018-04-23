@@ -1,6 +1,6 @@
-package account.repository;
+package vehicle.repository;
 
-import account.domain.Vehicle;
+import vehicle.domain.Vehicle;
 import com.s63d.generic.Repository;
 
 import javax.ejb.Stateless;

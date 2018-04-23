@@ -20,6 +20,19 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
     @Inject
     public UserResource(UserService service) { super(service); }
 
+    @GET
+    @Path("{id}")
+    public User getById(@PathParam("id") Long id) {
+        return service.getById(id);
+    }
+
+    @GET
+    @Secured({"police", "government", "admin"})
+    @Path("{id}/ownership")
+    public List<Ownership> getOwnerships(@PathParam("id") long id) {
+        return service.getOwnerships(id);
+    }
+
     @POST
     public User registerUser(
             @FormParam("firstname") String firstname, @FormParam("lastname") String lastname,
@@ -34,12 +47,5 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
         String token = service.loginUser(email, password);
         JsonObject json = Json.createObjectBuilder().add("token", token).build();
         return Response.ok(json).build();
-    }
-
-    @GET
-    @Secured({"police", "government", "admin"})
-    @Path("{id}/ownership")
-    public List<Ownership> getOwnerships(@PathParam("id") long id) {
-        return service.getOwnerships(id);
     }
 }

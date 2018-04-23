@@ -23,8 +23,8 @@ public class RoleResource extends JsonResource<Role, String, RoleRepository, Rol
         return service.save(name, description);
     }
 
-    @Override
     public Response delete(String id) {
-        return super.delete(id);
+        service.deleteById(id);
+        return Response.ok().build();
     }
 }

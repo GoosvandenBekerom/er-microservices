@@ -1,4 +1,4 @@
-package account.util;
+package vehicle.util;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;

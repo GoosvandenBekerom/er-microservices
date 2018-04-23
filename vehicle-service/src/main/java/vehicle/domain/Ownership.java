@@ -1,4 +1,4 @@
-package account.domain;
+package vehicle.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

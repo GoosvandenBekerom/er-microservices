@@ -14,10 +14,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
-import javax.ws.rs.BadRequestException;
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
@@ -50,6 +47,9 @@ public class UserService extends DomainService<User, Long, UserRepository> {
 
     public String loginUser(String email, String password) {
         User user = getByEmail(email);
+        if (user == null) {
+            throw new NotFoundException("User with email "+email+" not found.");
+        }
         if (!BCrypt.checkpw(password, user.getPassword())) {
             throw new ClientErrorException("Wrong password", 401);
         }
@@ -65,7 +65,7 @@ public class UserService extends DomainService<User, Long, UserRepository> {
             Algorithm algorithm = Algorithm.HMAC256("secret"); // TODO: extract secret to config file
             return JWT.create()
                     .withExpiresAt(Date.from(new Date().toInstant().plusSeconds(WEEK_IN_SECONDS)))
-                    .withClaim("userId", user.getEmail())
+                    .withClaim("userId", user.getId())
                     .withClaim("userRole", user.getRole().getName())
                     .withIssuer("auth0")
                     .sign(algorithm);

@@ -1,4 +1,4 @@
-package account;
+package vehicle;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

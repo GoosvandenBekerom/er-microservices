@@ -1,4 +1,4 @@
-package account.domain;
+package vehicle.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +9,6 @@ import java.util.Objects;
 @Entity
 public class SimpleUser implements Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String email;
@@ -20,7 +19,8 @@ public class SimpleUser implements Serializable{
     private List<Ownership> ownerships;
 
     public SimpleUser() {}
-    public SimpleUser(String firstName, String lastName, String email, String password) {
+    public SimpleUser(long id, String firstName, String lastName, String email, String password) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;

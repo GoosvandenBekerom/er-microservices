@@ -1,13 +1,16 @@
-package account.service;
+package vehicle.service;
 
-import account.domain.SimpleUser;
-import account.domain.Vehicle;
-import account.repository.VehicleRepository;
 import com.s63d.generic.DomainService;
+import vehicle.domain.Ownership;
+import vehicle.domain.SimpleUser;
+import vehicle.domain.Vehicle;
+import vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
 
@@ -16,6 +19,14 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
     @Inject
     public VehicleService(VehicleRepository repo) { super(repo); }
     public VehicleService() { super(); }
+
+    public List<Vehicle> getAllVehicles(SimpleUser user) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        for (Ownership o : user.getOwnerships()) {
+            vehicles.add(o.getVehicle());
+        }
+        return vehicles;
+    }
 
     public Vehicle save(String license, String type, String brand, String color) {
         return super.save(new Vehicle(md5(license), type, brand, color));
