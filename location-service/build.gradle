@@ -4,8 +4,11 @@ version '1.0-SNAPSHOT'
 war {
     archiveName = 'location-service.war'
 }
-
+repositories {
+    maven { url 'https://jitpack.io' }
+}
 dependencies {
     compile rootProject
     compile group: 'net.reini', name: 'rabbitmq-cdi', version: '0.9.5'
+    compile 'com.github.scoutant:polyline-decoder:b32557f'
 }

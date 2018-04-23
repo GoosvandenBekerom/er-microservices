@@ -1,6 +1,7 @@
 package com.s63d.location.event;
 
 import com.s63d.location.domain.Location;
+import com.s63d.location.domain.Trip;
 
 import java.io.Serializable;
 
@@ -8,8 +9,7 @@ public class LocationEvent implements Serializable {
 
     public LocationEvent() {}
 
-        public LocationEvent(Long tripId, Double lat, Double lon) {
-            this.tripId = tripId;
+        public LocationEvent(Trip trip, Double lat, Double lon) {
             this.lat = lat;
             this.lon = lon;
         }
@@ -61,7 +61,7 @@ public class LocationEvent implements Serializable {
                 '}';
     }
 
-    Location toLocation() {
-        return new Location(tripId, lat, lon);
+    Location toLocation(Trip trip) {
+        return new Location(trip, lat, lon);
     }
 }
