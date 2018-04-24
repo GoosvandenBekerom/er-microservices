@@ -1,12 +1,12 @@
-package vehicle.resource;
+package com.s63d.vehicle.resource;
 
-import vehicle.clients.AccountClient;
-import vehicle.domain.SimpleUser;
-import vehicle.domain.Vehicle;
-import vehicle.repository.VehicleRepository;
-import vehicle.service.OwnershipService;
-import vehicle.service.SimpleUserService;
-import vehicle.service.VehicleService;
+import com.s63d.vehicle.clients.AccountClient;
+import com.s63d.vehicle.domain.SimpleUser;
+import com.s63d.vehicle.domain.Vehicle;
+import com.s63d.vehicle.repository.VehicleRepository;
+import com.s63d.vehicle.service.OwnershipService;
+import com.s63d.vehicle.service.SimpleUserService;
+import com.s63d.vehicle.service.VehicleService;
 import com.s63d.annotation.Secured;
 import com.s63d.generic.JsonResource;
 
@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import java.util.List;
 
 @Secured
-@Path("vehicle")
+@Path("com/s63d/vehicle")
 public class VehicleResource extends JsonResource<Vehicle, String, VehicleRepository, VehicleService> {
     private OwnershipService ownershipService;
     private SimpleUserService userService;

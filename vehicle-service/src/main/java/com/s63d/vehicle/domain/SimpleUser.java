@@ -1,4 +1,4 @@
-package vehicle.domain;
+package com.s63d.vehicle.domain;
 
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;

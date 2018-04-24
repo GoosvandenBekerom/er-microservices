@@ -1,12 +1,12 @@
-package vehicle.resource;
+package com.s63d.vehicle.resource;
 
 import com.s63d.annotation.Secured;
 import com.s63d.generic.JsonResource;
-import vehicle.clients.AccountClient;
-import vehicle.domain.Ownership;
-import vehicle.domain.SimpleUser;
-import vehicle.repository.OwnershipRepository;
-import vehicle.service.OwnershipService;
+import com.s63d.vehicle.clients.AccountClient;
+import com.s63d.vehicle.domain.Ownership;
+import com.s63d.vehicle.domain.SimpleUser;
+import com.s63d.vehicle.repository.OwnershipRepository;
+import com.s63d.vehicle.service.OwnershipService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

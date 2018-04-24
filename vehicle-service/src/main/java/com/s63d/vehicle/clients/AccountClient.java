@@ -1,7 +1,7 @@
-package vehicle.clients;
+package com.s63d.vehicle.clients;
 
 import com.s63d.util.ServiceURLs;
-import vehicle.domain.SimpleUser;
+import com.s63d.vehicle.domain.SimpleUser;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.client.ClientBuilder;

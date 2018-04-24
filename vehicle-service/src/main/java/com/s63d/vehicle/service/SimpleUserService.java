@@ -1,8 +1,8 @@
-package vehicle.service;
+package com.s63d.vehicle.service;
 
 import com.s63d.generic.DomainService;
-import vehicle.domain.SimpleUser;
-import vehicle.repository.SimpleUserRepository;
+import com.s63d.vehicle.domain.SimpleUser;
+import com.s63d.vehicle.repository.SimpleUserRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

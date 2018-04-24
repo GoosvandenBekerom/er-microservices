@@ -1,8 +1,8 @@
-package vehicle.repository;
+package com.s63d.vehicle.repository;
 
 import com.s63d.generic.Repository;
-import vehicle.domain.Ownership;
-import vehicle.domain.SimpleUser;
+import com.s63d.vehicle.domain.Ownership;
+import com.s63d.vehicle.domain.SimpleUser;
 
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;

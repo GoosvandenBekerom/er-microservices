@@ -1,11 +1,11 @@
-package vehicle.service;
+package com.s63d.vehicle.service;
 
 import com.s63d.generic.DomainService;
-import vehicle.domain.Ownership;
-import vehicle.domain.SimpleUser;
-import vehicle.domain.Vehicle;
-import vehicle.repository.OwnershipRepository;
-import vehicle.repository.VehicleRepository;
+import com.s63d.vehicle.domain.Ownership;
+import com.s63d.vehicle.domain.SimpleUser;
+import com.s63d.vehicle.domain.Vehicle;
+import com.s63d.vehicle.repository.OwnershipRepository;
+import com.s63d.vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
