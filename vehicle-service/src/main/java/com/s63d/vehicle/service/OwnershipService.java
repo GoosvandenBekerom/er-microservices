@@ -14,11 +14,9 @@ import java.util.List;
 
 @Stateless
 public class OwnershipService extends DomainService<Ownership, Long, OwnershipRepository> {
-    private VehicleRepository vehicleRepo;
     @Inject
-    public OwnershipService(OwnershipRepository repository, VehicleRepository vehicleRepo) {
+    public OwnershipService(OwnershipRepository repository) {
         super(repository);
-        this.vehicleRepo = vehicleRepo;
     }
     public OwnershipService() { super(); }
 

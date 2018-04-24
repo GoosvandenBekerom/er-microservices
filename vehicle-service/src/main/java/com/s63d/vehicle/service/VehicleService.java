@@ -8,8 +8,8 @@ import com.s63d.vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.Query;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
@@ -32,7 +32,7 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             return encodeHexString(md5.digest(s.getBytes()));
-        } catch (Exception e) {
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return "";
         }

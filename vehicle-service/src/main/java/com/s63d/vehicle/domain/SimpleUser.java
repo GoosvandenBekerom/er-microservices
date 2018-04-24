@@ -10,11 +10,6 @@ import java.util.Objects;
 @Entity
 @NamedQueries({
         @NamedQuery(name = "user.getOwnerships", query = "SELECT o FROM Ownership o WHERE o.user = :user"),
-        /*@NamedQuery(
-                name = "user.getVehicles",
-                query = "SELECT o.vehicle FROM Ownership o " +
-                        "WHERE o.user = :user AND o.endDate is null AND o.endDate > :today"
-        )*/
 })
 public class SimpleUser implements Serializable{
     @Id

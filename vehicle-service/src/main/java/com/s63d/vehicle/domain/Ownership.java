@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"USER_ID", "VEHICLE_ID"})
+})
 public class Ownership implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +19,7 @@ public class Ownership implements Serializable{
 
     @ManyToOne
     private Vehicle vehicle;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private SimpleUser user;
 
     public Ownership() {}

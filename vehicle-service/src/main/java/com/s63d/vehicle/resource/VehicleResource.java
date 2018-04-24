@@ -17,7 +17,7 @@ import javax.ws.rs.core.Context;
 import java.util.List;
 
 @Secured
-@Path("com/s63d/vehicle")
+@Path("vehicle")
 public class VehicleResource extends JsonResource<Vehicle, String, VehicleRepository, VehicleService> {
     private OwnershipService ownershipService;
     private SimpleUserService userService;
