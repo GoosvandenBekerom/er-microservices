@@ -3,12 +3,15 @@ package com.s63d.account.resource;
 import com.s63d.account.domain.User;
 import com.s63d.account.repository.UserRepository;
 import com.s63d.account.service.UserService;
+import com.s63d.annotation.Secured;
 import com.s63d.generic.JsonResource;
 
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
+import javax.ws.rs.container.ContainerRequestContext;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 @Path("user")
@@ -36,5 +39,18 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
         String token = service.loginUser(email, password);
         JsonObject json = Json.createObjectBuilder().add("token", token).build();
         return Response.ok(json).build();
+    }
+
+    @PUT
+    @Secured
+    public Response updateUser(
+            @Context ContainerRequestContext context,
+            @FormParam("firstname") String firstname, @FormParam("lastname") String lastname
+    ) {
+        long userId = (long) context.getProperty("user");
+        User user = service.getById(userId);
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        return Response.ok().build();
     }
 }
