@@ -1,5 +1,6 @@
 package com.s63d.vehicle.domain;
 
+import javax.json.bind.annotation.JsonbDateFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +15,9 @@ public class Ownership implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @JsonbDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
     private Date startDate;
+    @JsonbDateFormat("yyyy-MM-dd'T'HH:mm'Z'")
     private Date endDate;
 
     @ManyToOne
