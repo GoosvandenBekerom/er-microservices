@@ -21,8 +21,7 @@ public abstract class Repository<T, TID> {
      * @return persisted entity
      */
     public T save(T entity) {
-        em.persist(entity);
-        return entity;
+        return em.merge(entity);
     }
 
     /**

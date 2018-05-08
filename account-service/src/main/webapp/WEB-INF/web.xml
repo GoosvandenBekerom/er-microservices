@@ -4,7 +4,7 @@
         <servlet-class>io.swagger.v3.jaxrs2.integration.OpenApiServlet</servlet-class>
         <init-param>
             <param-name>openApi.configuration.resourcePackages</param-name>
-            <param-value>com.s63d.account.resource</param-value>
+            <param-value>com.s63d.vehicle.resource</param-value>
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>

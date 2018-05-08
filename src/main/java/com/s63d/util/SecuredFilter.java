@@ -48,7 +48,7 @@ public class SecuredFilter implements ContainerRequestFilter {
                     .build();
 
             DecodedJWT jwt = verifier.verify(token);
-            String userId = jwt.getClaim("userId").asString();
+            Long userId = jwt.getClaim("userId").asLong();
             String userRole = jwt.getClaim("userRole").asString();
 
             if (!isPermitted(userRole, allowed)) {

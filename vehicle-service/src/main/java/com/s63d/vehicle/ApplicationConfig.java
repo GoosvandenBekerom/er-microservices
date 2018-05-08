@@ -1,4 +1,4 @@
-package account;
+package com.s63d.vehicle;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

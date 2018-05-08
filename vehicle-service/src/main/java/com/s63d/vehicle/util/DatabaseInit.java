@@ -1,4 +1,4 @@
-package account.util;
+package com.s63d.vehicle.util;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;

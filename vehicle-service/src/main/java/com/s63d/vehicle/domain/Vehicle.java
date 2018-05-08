@@ -1,18 +1,18 @@
-package com.s63d.account.domain;
+package com.s63d.vehicle.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class SimpleVehicle {
+public class Vehicle {
     @Id
     private String id;
     private String type;
     private String brand;
     private String color;
 
-    public SimpleVehicle() {}
-    public SimpleVehicle(String id, String type, String brand, String color) {
+    public Vehicle() {}
+    public Vehicle(String id, String type, String brand, String color) {
         this.id = id;
         this.type = type;
         this.brand = brand;

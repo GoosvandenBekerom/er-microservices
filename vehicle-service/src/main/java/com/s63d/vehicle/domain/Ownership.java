@@ -1,4 +1,4 @@
-package com.s63d.account.domain;
+package com.s63d.vehicle.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"USER_ID", "VEHICLE_ID"})
+})
 public class Ownership implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,14 +18,13 @@ public class Ownership implements Serializable{
     private Date endDate;
 
     @ManyToOne
-    private User user;
-    @ManyToOne
-    private SimpleVehicle vehicle;
+    private Vehicle vehicle;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private SimpleUser user;
 
     public Ownership() {}
-    public Ownership(Date startDate, Date endDate, User user, SimpleVehicle vehicle) {
+    public Ownership(Date startDate, SimpleUser user, Vehicle vehicle) {
         this.startDate = startDate;
-        this.endDate = endDate;
         this.user = user;
         this.vehicle = vehicle;
     }
@@ -51,19 +53,19 @@ public class Ownership implements Serializable{
         this.endDate = endDate;
     }
 
-    public User getUser() {
+    public SimpleUser getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(SimpleUser user) {
         this.user = user;
     }
 
-    public SimpleVehicle getVehicle() {
+    public Vehicle getVehicle() {
         return vehicle;
     }
 
-    public void setVehicle(SimpleVehicle vehicle) {
+    public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
