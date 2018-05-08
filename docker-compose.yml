@@ -43,7 +43,7 @@ services:
     build: ./invoice-service
     image: er/invoice-service:latest
     ports:
-      - 8081:8080
+      - 8083:8080
     depends_on:
       - mysql
 

@@ -26,7 +26,6 @@ public class TripResource extends JsonResource<Trip, Long, TripRepository, TripS
         return trip;
     }
 
-    @Override
     public Response getById(Long id) {
         return ok(service.getTripResponse(id)).build();
     }

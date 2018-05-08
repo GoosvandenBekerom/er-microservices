@@ -14,7 +14,7 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
-@Path("user")
+@Path("/user")
 public class UserResource extends JsonResource<User, Long, UserRepository, UserService> {
     @Inject
     public UserResource(UserService service) { super(service); }
