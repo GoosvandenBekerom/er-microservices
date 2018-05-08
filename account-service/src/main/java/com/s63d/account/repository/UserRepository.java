@@ -19,4 +19,11 @@ public class UserRepository extends Repository<User, Long> {
             return null;
         }
     }
+
+    public User updateUser(long userId, String firstname, String lastname) {
+        User user = getById(userId);
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        return user;
+    }
 }

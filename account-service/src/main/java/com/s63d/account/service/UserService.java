@@ -56,6 +56,10 @@ public class UserService extends DomainService<User, Long, UserRepository> {
         return repo.findByEmail(email);
     }
 
+    public User updateUser(long userId, String firstname, String lastname) {
+        return repo.updateUser(userId, firstname, lastname);
+    }
+
     private String generateToken(User user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256("secret"); // TODO: extract secret to config file

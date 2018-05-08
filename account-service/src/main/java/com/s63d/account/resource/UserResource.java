@@ -43,14 +43,11 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
 
     @PUT
     @Secured
-    public Response updateUser(
+    public User updateUser(
             @Context ContainerRequestContext context,
             @FormParam("firstname") String firstname, @FormParam("lastname") String lastname
     ) {
         long userId = (long) context.getProperty("user");
-        User user = service.getById(userId);
-        user.setFirstName(firstname);
-        user.setLastName(lastname);
-        return Response.ok().build();
+        return service.updateUser(userId, firstname, lastname);
     }
 }
