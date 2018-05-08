@@ -11,7 +11,7 @@ import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
-@Path("user")
+@Path("/user")
 public class UserResource extends JsonResource<User, Long, UserRepository, UserService> {
     @Inject
     public UserResource(UserService service) { super(service); }

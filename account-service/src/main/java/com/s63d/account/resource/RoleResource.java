@@ -12,7 +12,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-@Path("role")
+@Path("/role")
 @Secured("admin")
 public class RoleResource extends JsonResource<Role, String, RoleRepository, RoleService> {
     @Inject
