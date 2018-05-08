@@ -26,7 +26,7 @@ public class SimpleUser implements Serializable{
     public SimpleUser() {
         this.ownerships = new ArrayList<>();
     }
-    public SimpleUser(long id, String firstName, String lastName, String email, String password) {
+    public SimpleUser(long id, String firstName, String lastName, String email) {
         this();
         this.id = id;
         this.firstName = firstName;
