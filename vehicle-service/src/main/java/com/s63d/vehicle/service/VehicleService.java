@@ -24,8 +24,15 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
         return repo.getAllVehicles(user);
     }
 
-    public Vehicle save(String license, String type, String brand, String color) {
-        return super.save(new Vehicle(md5(license), type, brand, color));
+    public Vehicle save(String license, String type, String brand, String color, int weight) {
+        char rate = getRateForWeight(weight);
+        return super.save(new Vehicle(md5(license), type, brand, color, weight, rate));
+    }
+
+    private char getRateForWeight(int weight) {
+        char offset = 'A';
+        int cat = (int) Math.min(5, Math.ceil(weight / 1000));
+        return (char) (offset + cat);
     }
 
     private String md5(String s) {

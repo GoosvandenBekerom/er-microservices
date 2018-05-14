@@ -50,11 +50,11 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
     public Vehicle save(
             @Context ContainerRequestContext context,
             @FormParam("license") String license, @FormParam("type") String type,
-            @FormParam("brand") String brand, @FormParam("color") String color)
+            @FormParam("brand") String brand, @FormParam("color") String color, @FormParam("weight") int weight)
     {
         long userId = (long) context.getProperty("user");
         SimpleUser owner = accountClient.getUserById(userId);
-        Vehicle vehicle = service.save(license, type, brand, color);
+        Vehicle vehicle = service.save(license, type, brand, color, weight);
         ownershipService.create(owner, vehicle);
         return vehicle;
     }
