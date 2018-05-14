@@ -18,6 +18,9 @@ public class SimpleUser implements Serializable{
     private String email;
     private String firstName;
     private String lastName;
+    private String address;
+    private String postal;
+    private String city;
 
     @OneToMany(mappedBy = "user")
     @JsonbTransient
@@ -26,12 +29,40 @@ public class SimpleUser implements Serializable{
     public SimpleUser() {
         this.ownerships = new ArrayList<>();
     }
-    public SimpleUser(long id, String firstName, String lastName, String email) {
+
+    public SimpleUser(long id, String email, String firstName, String lastName, String address, String postal, String city) {
         this();
         this.id = id;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.address = address;
+        this.postal = postal;
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPostal() {
+        return postal;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public long getId() {

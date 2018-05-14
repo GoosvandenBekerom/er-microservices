@@ -20,10 +20,13 @@ public class UserRepository extends Repository<User, Long> {
         }
     }
 
-    public User updateUser(long userId, String firstname, String lastname) {
+    public User updateUser(long userId, String firstname, String lastname, String address, String postal, String city) {
         User user = getById(userId);
         user.setFirstName(firstname);
         user.setLastName(lastname);
+        user.setAddress(address);
+        user.setPostal(postal);
+        user.setCity(city);
         return user;
     }
 }

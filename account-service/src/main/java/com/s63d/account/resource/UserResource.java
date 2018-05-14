@@ -28,9 +28,11 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
     @POST
     public User registerUser(
             @FormParam("firstname") String firstname, @FormParam("lastname") String lastname,
-            @FormParam("email") String email, @FormParam("password") String password
+            @FormParam("email") String email, @FormParam("password") String password,
+            @FormParam("address") String address, @FormParam("postal") String postal,
+            @FormParam("city") String city
     ) {
-        return service.save(firstname, lastname, email, password);
+        return service.save(firstname, lastname, email, password, address, postal, city);
     }
 
     @POST
@@ -45,9 +47,11 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
     @Secured
     public User updateUser(
             @Context ContainerRequestContext context,
-            @FormParam("firstname") String firstname, @FormParam("lastname") String lastname
+            @FormParam("firstname") String firstname, @FormParam("lastname") String lastname,
+            @FormParam("address") String address, @FormParam("postal") String postal,
+            @FormParam("city") String city
     ) {
         long userId = (long) context.getProperty("user");
-        return service.updateUser(userId, firstname, lastname);
+        return service.updateUser(userId, firstname, lastname, address, postal, city);
     }
 }
