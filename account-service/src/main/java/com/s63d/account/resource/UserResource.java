@@ -14,6 +14,8 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import static javax.ws.rs.core.Response.ok;
+
 @Path("/user")
 public class UserResource extends JsonResource<User, Long, UserRepository, UserService> {
     @Inject
@@ -40,7 +42,7 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
     public Response login(@FormParam("email") String email, @FormParam("password") String password) {
         String token = service.loginUser(email, password);
         JsonObject json = Json.createObjectBuilder().add("token", token).build();
-        return Response.ok(json).build();
+        return ok(json).build();
     }
 
     @PUT
@@ -53,5 +55,16 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
     ) {
         long userId = (long) context.getProperty("user");
         return service.updateUser(userId, firstname, lastname, address, postal, city);
+    }
+
+    @PUT
+    @Secured
+    public Response changePassword(
+            @Context ContainerRequestContext context,
+            @FormParam("old") String old, @FormParam("new") String newPass, @FormParam("newAgain") String newPassAgain
+    ) {
+        long userId = (long) context.getProperty("user");
+        service.changePassword(userId, old, newPass, newPassAgain);
+        return ok().build();
     }
 }

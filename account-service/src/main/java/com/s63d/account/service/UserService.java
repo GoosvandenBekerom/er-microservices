@@ -57,7 +57,25 @@ public class UserService extends DomainService<User, Long, UserRepository> {
     }
 
     public User updateUser(long userId, String firstname, String lastname, String address, String postal, String city) {
-        return repo.updateUser(userId, firstname, lastname, address, postal, city);
+        User user = getById(userId);
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        user.setAddress(address);
+        user.setPostal(postal);
+        user.setCity(city);
+        return repo.save(user);
+    }
+
+    public void changePassword(long userId, String old, String newPass, String newPassAgain) {
+        User user = getById(userId);
+        if (!BCrypt.checkpw(old, user.getPassword())) {
+            throw new ClientErrorException("Wrong password", 401);
+        }
+        if (!newPass.equals(newPassAgain)) {
+            throw new BadRequestException("The passwords you entered were not identical");
+        }
+        user.setPassword(BCrypt.hashpw(newPass, BCrypt.gensalt()));
+        repo.save(user);
     }
 
     private String generateToken(User user) {
