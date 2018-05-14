@@ -38,7 +38,7 @@ public class UserService extends DomainService<User, Long, UserRepository> {
 
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
         Role basicRole = roleService.getById("basic");
-        return super.save(new User(firstname, lastname, email, hashed, address, postal, city, basicRole));
+        return super.save(new User(email, firstname, lastname, hashed, address, postal, city, basicRole));
     }
 
     public String loginUser(String email, String password) {
