@@ -14,6 +14,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.xml.registry.infomodel.User;
 import java.util.List;
 
 @Secured
@@ -57,5 +59,14 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
         Vehicle vehicle = service.save(license, type, brand, color, weight);
         ownershipService.create(owner, vehicle);
         return vehicle;
+    }
+
+    @POST
+    @Path("{license}/suspend")
+    public Response suspendCar(@Context ContainerRequestContext context, @PathParam("license") String licence) {
+        long userId = (long) context.getProperty("user");
+        SimpleUser owner = accountClient.getUserById(userId);
+        service.suspend(licence, owner);
+        return Response.ok().build();
     }
 }
