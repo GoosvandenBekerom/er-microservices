@@ -13,7 +13,8 @@ import java.util.Objects;
 @NamedQueries(
         @NamedQuery(
                 name = "ownership.getByVehicle",
-                query = "SELECT o FROM Ownership o WHERE o.vehicle.id = :vehicleId AND o.endDate IS NULL"
+                query = "SELECT o FROM Ownership o " +
+                        "WHERE o.vehicle.id = :vehicleId AND o.user.id = :userId AND o.endDate IS NULL"
         )
 )
 public class Ownership implements Serializable{
@@ -41,43 +42,33 @@ public class Ownership implements Serializable{
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public Date getStartDate() {
         return startDate;
     }
-
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
     public Date getEndDate() {
         return endDate;
     }
-
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
     public SimpleUser getUser() {
         return user;
     }
-
     public void setUser(SimpleUser user) {
         this.user = user;
     }
-
     public Vehicle getVehicle() {
         return vehicle;
     }
-
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -88,7 +79,6 @@ public class Ownership implements Serializable{
                 Objects.equals(getEndDate(), ownership.getEndDate()) &&
                 Objects.equals(getUser(), ownership.getUser());
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getStartDate(), getEndDate(), getUser());

@@ -31,13 +31,13 @@ public class OwnershipService extends DomainService<Ownership, Long, OwnershipRe
     }
 
     public void suspend(Vehicle vehicle, SimpleUser user) {
-        Ownership ownership = getLatestOfVehicle(vehicle);
+        Ownership ownership = getLatestOfVehicle(vehicle, user.getId());
         if (ownership == null) throw new NotFoundException("No current ownership found for this vehicle");
         if (ownership.getUser() != user) throw new NotAuthorizedException("You can't suspend someone else's car");
         repo.suspend(ownership);
     }
 
-    public Ownership getLatestOfVehicle(Vehicle vehicle) {
-        return repo.getLatestOfVehicle(vehicle);
+    public Ownership getLatestOfVehicle(Vehicle vehicle, long ownerId) {
+        return repo.getLatestOfVehicle(vehicle, ownerId);
     }
 }

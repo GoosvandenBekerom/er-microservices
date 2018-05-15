@@ -24,9 +24,10 @@ public class OwnershipRepository extends Repository<Ownership, Long> {
         ownership.setEndDate(new Date());
     }
 
-    public Ownership getLatestOfVehicle(Vehicle vehicle) {
+    public Ownership getLatestOfVehicle(Vehicle vehicle, long ownerId) {
         TypedQuery<Ownership> q = em.createNamedQuery("ownership.getByVehicle", Ownership.class);
         q.setParameter("vehicleId", vehicle.getId());
+        q.setParameter("userId", ownerId);
         return q.getSingleResult();
     }
 }
