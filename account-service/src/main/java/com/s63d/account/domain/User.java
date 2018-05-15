@@ -16,16 +16,23 @@ public class User implements Serializable{
     private String lastName;
     @JsonbTransient
     private String password;
+    private String address;
+    private String postal;
+    private String city;
 
     @OneToOne
     private Role role;
 
     public User() {}
-    public User(String firstName, String lastName, String email, String password, Role role) {
+
+    public User(String email, String firstName, String lastName, String password, String address, String postal, String city, Role role) {
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
         this.password = password;
+        this.address = address;
+        this.postal = postal;
+        this.city = city;
         this.role = role;
     }
 
@@ -67,6 +74,30 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPostal() {
+        return postal;
+    }
+
+    public void setPostal(String postal) {
+        this.postal = postal;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Role getRole() {

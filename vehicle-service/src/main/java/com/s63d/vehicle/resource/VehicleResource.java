@@ -14,6 +14,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.xml.registry.infomodel.User;
 import java.util.List;
 
 @Secured
@@ -40,7 +42,13 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
     }
 
     @GET
-    @Path("{userId}")
+    @Path("{license}")
+    public Vehicle getVehicleByLicense(@PathParam("license") String license) {
+        return service.getVehicleByLicense(license);
+    }
+
+    @GET
+    @Path("user/{userId}")
     public List<Vehicle> allVehiclesOfUser(@PathParam("userId") long userId) {
         SimpleUser user = userService.getById(userId);
         return service.getAllVehicles(user);
@@ -50,12 +58,21 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
     public Vehicle save(
             @Context ContainerRequestContext context,
             @FormParam("license") String license, @FormParam("type") String type,
-            @FormParam("brand") String brand, @FormParam("color") String color)
+            @FormParam("brand") String brand, @FormParam("color") String color, @FormParam("weight") int weight)
     {
         long userId = (long) context.getProperty("user");
         SimpleUser owner = accountClient.getUserById(userId);
-        Vehicle vehicle = service.save(license, type, brand, color);
+        Vehicle vehicle = service.save(license, type, brand, color, weight);
         ownershipService.create(owner, vehicle);
         return vehicle;
+    }
+
+    @POST
+    @Path("{license}/suspend")
+    public Response suspendCar(@Context ContainerRequestContext context, @PathParam("license") String licence) {
+        long userId = (long) context.getProperty("user");
+        SimpleUser owner = accountClient.getUserById(userId);
+        service.suspend(licence, owner);
+        return Response.ok().build();
     }
 }

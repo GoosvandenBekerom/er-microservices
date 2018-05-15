@@ -28,7 +28,7 @@ public class UserService extends DomainService<User, Long, UserRepository> {
     public UserService(UserRepository repo) { super(repo); }
     public UserService() { super(); }
 
-    public User save(String firstname, String lastname, String email, String password) {
+    public User save(String firstname, String lastname, String email, String password, String address, String postal, String city) {
         if (!validation.notNull(firstname, lastname, password)) {
             throw new BadRequestException("Please fill in all fields");
         }
@@ -38,7 +38,7 @@ public class UserService extends DomainService<User, Long, UserRepository> {
 
         String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
         Role basicRole = roleService.getById("basic");
-        return super.save(new User(firstname, lastname, email, hashed, basicRole));
+        return super.save(new User(email, firstname, lastname, hashed, address, postal, city, basicRole));
     }
 
     public String loginUser(String email, String password) {
@@ -54,6 +54,28 @@ public class UserService extends DomainService<User, Long, UserRepository> {
 
     private User getByEmail(String email) {
         return repo.findByEmail(email);
+    }
+
+    public User updateUser(long userId, String firstname, String lastname, String address, String postal, String city) {
+        User user = getById(userId);
+        user.setFirstName(firstname);
+        user.setLastName(lastname);
+        user.setAddress(address);
+        user.setPostal(postal);
+        user.setCity(city);
+        return repo.save(user);
+    }
+
+    public void changePassword(long userId, String old, String newPass, String newPassAgain) {
+        User user = getById(userId);
+        if (!BCrypt.checkpw(old, user.getPassword())) {
+            throw new ClientErrorException("Wrong password", 401);
+        }
+        if (!newPass.equals(newPassAgain)) {
+            throw new BadRequestException("The passwords you entered were not identical");
+        }
+        user.setPassword(BCrypt.hashpw(newPass, BCrypt.gensalt()));
+        repo.save(user);
     }
 
     private String generateToken(User user) {

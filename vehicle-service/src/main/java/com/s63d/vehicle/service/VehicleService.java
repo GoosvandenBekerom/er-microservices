@@ -8,24 +8,50 @@ import com.s63d.vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.NotAuthorizedException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.List;
 
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
 
 @Stateless
 public class VehicleService extends DomainService<Vehicle, String, VehicleRepository> {
+    private OwnershipService ownershipService;
     @Inject
-    public VehicleService(VehicleRepository repo) { super(repo); }
+    public VehicleService(VehicleRepository repo, OwnershipService ownershipService) {
+        super(repo);
+        this.ownershipService = ownershipService;
+    }
     public VehicleService() { super(); }
 
     public List<Vehicle> getAllVehicles(SimpleUser user) {
         return repo.getAllVehicles(user);
     }
 
-    public Vehicle save(String license, String type, String brand, String color) {
-        return super.save(new Vehicle(md5(license), type, brand, color));
+    public Vehicle save(String license, String type, String brand, String color, int weight) {
+        String hashedLicense = md5(license);
+        if (repo.exists(hashedLicense)) {
+            return repo.getById(hashedLicense);
+        }
+        char rate = getRateForWeight(weight);
+        return super.save(new Vehicle(md5(license), type, brand, color, weight, rate));
+    }
+
+    public Vehicle getVehicleByLicense(String license) {
+        return repo.getById(md5(license));
+    }
+
+    public void suspend(String licence, SimpleUser owner) {
+        Vehicle vehicle = getById(md5(licence));
+        ownershipService.suspend(vehicle, owner);
+    }
+
+    private char getRateForWeight(int weight) {
+        char offset = 'A';
+        int cat = (int) Math.min(5, Math.ceil(weight / 1000));
+        return (char) (offset + cat);
     }
 
     private String md5(String s) {

@@ -10,6 +10,12 @@ import java.util.Objects;
 @Table(uniqueConstraints={
         @UniqueConstraint(columnNames = {"USER_ID", "VEHICLE_ID"})
 })
+@NamedQueries(
+        @NamedQuery(
+                name = "ownership.getByVehicle",
+                query = "SELECT o FROM Ownership o WHERE o.vehicle.id = :vehicleId AND o.endDate IS NULL"
+        )
+)
 public class Ownership implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

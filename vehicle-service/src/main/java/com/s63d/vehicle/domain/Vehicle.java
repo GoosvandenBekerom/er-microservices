@@ -10,13 +10,17 @@ public class Vehicle {
     private String type;
     private String brand;
     private String color;
+    private int weight;
+    private char rate;
 
     public Vehicle() {}
-    public Vehicle(String id, String type, String brand, String color) {
+    public Vehicle(String id, String type, String brand, String color, int weight, char rate) {
         this.id = id;
         this.type = type;
         this.brand = brand;
         this.color = color;
+        this.weight = weight;
+        this.rate = rate;
     }
 
     public String getId() {
@@ -42,5 +46,17 @@ public class Vehicle {
     }
     public void setColor(String color) {
         this.color = color;
+    }
+    public int getWeight() {
+        return weight;
+    }
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+    public char getRate() {
+        return rate;
+    }
+    public void setRate(char rate) {
+        this.rate = rate;
     }
 }
