@@ -39,6 +39,10 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
         return super.save(new Vehicle(md5(license), type, brand, color, weight, rate));
     }
 
+    public Vehicle getVehicleByLicense(String license) {
+        return repo.getById(md5(license));
+    }
+
     public void suspend(String licence, SimpleUser owner) {
         Vehicle vehicle = getById(md5(licence));
         ownershipService.suspend(vehicle, owner);

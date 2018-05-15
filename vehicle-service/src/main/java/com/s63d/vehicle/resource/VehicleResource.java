@@ -42,7 +42,13 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
     }
 
     @GET
-    @Path("{userId}")
+    @Path("{license}")
+    public Vehicle getVehicleByLicense(@PathParam("license") String license) {
+        return service.getVehicleByLicense(license);
+    }
+
+    @GET
+    @Path("user/{userId}")
     public List<Vehicle> allVehiclesOfUser(@PathParam("userId") long userId) {
         SimpleUser user = userService.getById(userId);
         return service.getAllVehicles(user);
