@@ -9,13 +9,21 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(String client, Date createdAt, InvoiceStatus status, Double price, List<Trip> trips, Double distance) {
+    public Invoice(String client, Date createdAt, InvoiceStatus status, Double price, List<SimpleTrip> trips, Double distance) {
         this.client = client;
         this.createdAt = createdAt;
         this.status = status;
         this.price = price;
         this.trips = trips;
-        this.distance = distance;
+    }
+
+    public Invoice(String client, List<SimpleTrip> trips) {
+        this.client = client;
+        this.trips = trips;
+        this.status = InvoiceStatus.OPEN;
+
+        this.createdAt = new Date();
+        this.price = this.getDistance();
     }
 
     @Id
@@ -26,8 +34,9 @@ public class Invoice {
     private Date createdAt;
     private InvoiceStatus status;
     private Double price;
-    private List<Trip> trips;
-    private Double distance;
+
+    @OneToMany
+    private List<SimpleTrip> trips;
 
     public Long getId() {
         return id;
@@ -69,19 +78,16 @@ public class Invoice {
         this.price = price;
     }
 
-    public List<Trip> getTrips() {
+    public List<SimpleTrip> getTrips() {
         return trips;
     }
 
-    public void setTrips(List<Trip> trips) {
+    public void setTrips(List<SimpleTrip> trips) {
         this.trips = trips;
     }
 
     public Double getDistance() {
-        return distance;
+        return trips.stream().mapToDouble(SimpleTrip::getDistance).sum();
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
-    }
 }
