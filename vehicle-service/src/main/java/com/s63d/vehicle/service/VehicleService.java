@@ -1,17 +1,14 @@
 package com.s63d.vehicle.service;
 
 import com.s63d.generic.DomainService;
-import com.s63d.vehicle.domain.Ownership;
 import com.s63d.vehicle.domain.SimpleUser;
 import com.s63d.vehicle.domain.Vehicle;
 import com.s63d.vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.NotAuthorizedException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
 import java.util.List;
 
 import static org.apache.commons.codec.binary.Hex.encodeHexString;
@@ -33,7 +30,8 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
     public Vehicle save(String license, String type, String brand, String color, int weight) {
         String hashedLicense = md5(license);
         if (repo.exists(hashedLicense)) {
-            return repo.getById(hashedLicense);
+            Vehicle v = repo.getById(hashedLicense);
+            if (ownershipService.getLatestOfVehicle(v) != null) return v;
         }
         char rate = getRateForWeight(weight);
         return super.save(new Vehicle(md5(license), type, brand, color, weight, rate));

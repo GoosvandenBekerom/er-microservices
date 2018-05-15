@@ -37,7 +37,7 @@ public class OwnershipService extends DomainService<Ownership, Long, OwnershipRe
         repo.suspend(ownership);
     }
 
-    private Ownership getLatestOfVehicle(Vehicle vehicle) {
+    public Ownership getLatestOfVehicle(Vehicle vehicle) {
         return repo.getLatestOfVehicle(vehicle);
     }
 }
