@@ -61,6 +61,7 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
 
     @PUT
     @Secured
+    @Path("password")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response changePassword(
             @Context ContainerRequestContext context,
