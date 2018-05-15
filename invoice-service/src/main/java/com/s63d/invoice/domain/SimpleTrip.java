@@ -1,14 +1,19 @@
 package com.s63d.invoice.domain;
 
-public class Trip {
-    Trip() {}
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-    public Trip(Long tripId, Double distance, String polyline) {
+@Entity
+public class SimpleTrip {
+    public SimpleTrip() {}
+
+    public SimpleTrip(Long tripId, Double distance, String polyline) {
         this.tripId = tripId;
         this.distance = distance;
         this.polyline = polyline;
     }
 
+    @Id
     private Long tripId;
     private Double distance;
     private String polyline;
