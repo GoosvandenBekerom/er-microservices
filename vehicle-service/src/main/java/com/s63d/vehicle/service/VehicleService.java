@@ -7,6 +7,7 @@ import com.s63d.vehicle.repository.VehicleRepository;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.NotAuthorizedException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -27,22 +28,27 @@ public class VehicleService extends DomainService<Vehicle, String, VehicleReposi
         return repo.getAllVehicles(user);
     }
 
-    public Vehicle save(String license, String type, String brand, String color, int weight) {
+    public Vehicle save(String license, String type, String brand, String color, int weight, SimpleUser owner) {
         String hashedLicense = md5(license);
+
         if (repo.exists(hashedLicense)) {
             Vehicle v = repo.getById(hashedLicense);
-            if (ownershipService.getLatestOfVehicle(v) != null) return v;
+            if (ownershipService.getLatestOfVehicle(v, owner.getId()) != null) return v;
+            else throw new NotAuthorizedException("This car is currently owned by someone else");
         }
+
         char rate = getRateForWeight(weight);
-        return super.save(new Vehicle(md5(license), type, brand, color, weight, rate));
+        Vehicle vehicle = super.save(new Vehicle(md5(license), type, brand, color, weight, rate));
+        ownershipService.create(owner, vehicle);
+        return vehicle;
     }
 
     public Vehicle getVehicleByLicense(String license) {
         return repo.getById(md5(license));
     }
 
-    public void suspend(String licence, SimpleUser owner) {
-        Vehicle vehicle = getById(md5(licence));
+    public void suspend(String vehicleId, SimpleUser owner) {
+        Vehicle vehicle = getById(vehicleId);
         ownershipService.suspend(vehicle, owner);
     }
 

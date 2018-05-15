@@ -21,15 +21,11 @@ import java.util.List;
 @Secured
 @Path("vehicle")
 public class VehicleResource extends JsonResource<Vehicle, String, VehicleRepository, VehicleService> {
-    private OwnershipService ownershipService;
     private SimpleUserService userService;
     private AccountClient accountClient;
     @Inject
-    public VehicleResource(
-            VehicleService service, OwnershipService ownershipService,
-            SimpleUserService userService, AccountClient accountClient) {
+    public VehicleResource(VehicleService service, SimpleUserService userService, AccountClient accountClient) {
         super(service);
-        this.ownershipService = ownershipService;
         this.userService = userService;
         this.accountClient = accountClient;
     }
@@ -62,17 +58,15 @@ public class VehicleResource extends JsonResource<Vehicle, String, VehicleReposi
     {
         long userId = (long) context.getProperty("user");
         SimpleUser owner = accountClient.getUserById(userId);
-        Vehicle vehicle = service.save(license, type, brand, color, weight);
-        ownershipService.create(owner, vehicle);
-        return vehicle;
+        return service.save(license, type, brand, color, weight, owner);
     }
 
     @POST
-    @Path("{license}/suspend")
-    public Response suspendCar(@Context ContainerRequestContext context, @PathParam("license") String licence) {
+    @Path("{id}/suspend")
+    public Response suspendCar(@Context ContainerRequestContext context, @PathParam("id") String vehicleId) {
         long userId = (long) context.getProperty("user");
         SimpleUser owner = accountClient.getUserById(userId);
-        service.suspend(licence, owner);
+        service.suspend(vehicleId, owner);
         return Response.ok().build();
     }
 }
