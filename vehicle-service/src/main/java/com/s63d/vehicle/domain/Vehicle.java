@@ -2,6 +2,7 @@ package com.s63d.vehicle.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Vehicle {
@@ -12,6 +13,9 @@ public class Vehicle {
     private String color;
     private int weight;
     private char rate;
+
+    @OneToOne
+    private CarTracker carTracker;
 
     public Vehicle() {}
     public Vehicle(String id, String type, String brand, String color, int weight, char rate) {
@@ -58,5 +62,11 @@ public class Vehicle {
     }
     public void setRate(char rate) {
         this.rate = rate;
+    }
+    public CarTracker getCarTracker() {
+        return carTracker;
+    }
+    public void setCarTracker(CarTracker cartracker) {
+        this.carTracker = cartracker;
     }
 }
