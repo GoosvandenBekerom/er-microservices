@@ -9,6 +9,7 @@ import com.s63d.generic.JsonResource;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
@@ -69,6 +70,7 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
     ) {
         long userId = (long) context.getProperty("user");
         service.changePassword(userId, old, newPass, newPassAgain);
-        return ok().build();
+        JsonObject json = Json.createObjectBuilder().add("message", "Password updated").build();
+        return ok(json).build();
     }
 }
