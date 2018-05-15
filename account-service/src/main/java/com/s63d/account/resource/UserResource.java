@@ -12,6 +12,7 @@ import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.Response.ok;
@@ -47,6 +48,7 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
 
     @PUT
     @Secured
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public User updateUser(
             @Context ContainerRequestContext context,
             @FormParam("firstname") String firstname, @FormParam("lastname") String lastname,
@@ -59,6 +61,7 @@ public class UserResource extends JsonResource<User, Long, UserRepository, UserS
 
     @PUT
     @Secured
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response changePassword(
             @Context ContainerRequestContext context,
             @FormParam("old") String old, @FormParam("new") String newPass, @FormParam("newAgain") String newPassAgain
