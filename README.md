@@ -1,3 +1,6 @@
+# DEPRECATED
+this project has been rewritten in Spring Boot with Kotlin in a private organisation. Keeping this repository here for Java EE reference.
+
 # Europees Rekeningrijden Microservices
 
 "Europees Rekeningrijden" is a enterprise application split up in multiple distributed systems.
